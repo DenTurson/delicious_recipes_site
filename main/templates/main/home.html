@@ -31,7 +31,7 @@
 {% block content %}
     <section>
         <h2>The newest recipes:</h2>
-        {% for dish in dishes %}
+        {% for dish in page_obj %}
             <div class="recipe">
                 <h3>{{ dish.dish_title }}</h3>
                 <p>{{ dish.dish_ingredients|safe }}</p>

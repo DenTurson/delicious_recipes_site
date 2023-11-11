@@ -6,7 +6,7 @@
 {%block content%}
     <section>
         <h2>All recepies</h2>
-        {% for dish in dishes %}
+        {% for dish in page_obj %}
             <div class="recipe">
                 <h3>{{ dish.dish_title }}</h3>
                 <img src='{{dish.dish_image.url}}' alt='{{dish.dish_title}}'>

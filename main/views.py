@@ -3,15 +3,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db import IntegrityError
 from datetime import datetime
 from django.views.generic import DetailView
+from django.core.paginator import Paginator
 
 from .models import Dish
 from .forms import DishForm
 
 # Create your views here.
 def homepage(request):
+    dish_list = Dish.objects.all()
+    paginator = Paginator(dish_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(request = request, 
                   template_name = 'main/home.html',
-                  context = {'dishes': Dish.objects.all,
+                  context = {'page_obj':page_obj,
                              'request': request})
 
 def date(request):
@@ -38,9 +43,15 @@ def CreateRecipe(request):
     return render(request, 'main/create_recipe.html', {'form': form, 'title': 'Add a recipe:'})
 
 def AllRecipes(request):
+    dish_list = Dish.objects.all()
+    paginator = Paginator(dish_list, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request=request,
                   template_name='main/all_recipes.html',
-                  context={'dishes':Dish.objects.all},
+                  context={'page_obj':page_obj,
+                  }
                   )
 
 def RecipeDetail(request, dish_id):
