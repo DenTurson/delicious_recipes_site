@@ -54,12 +54,6 @@ def AllRecipes(request):
                   }
                   )
 
-def RecipeDetail(request, dish_id):
-    dish = Dish.objects.select_related(pk=dish_id)
-    return render(request=request,
-                  template_name='main/recipe_detail.html',
-                  context={'dish':dish},
-                  )
 
 class RecipeDetailView(DetailView):
     model = Dish
